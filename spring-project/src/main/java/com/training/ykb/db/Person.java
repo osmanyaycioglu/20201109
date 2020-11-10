@@ -3,12 +3,19 @@ package com.training.ykb.db;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@XmlRootElement
 public class Person {
 
     @Id
     @GeneratedValue
+    @JsonIgnore
+    @XmlTransient
     private long    personId;
     //@Column(name = "isim")
     private String  name;
