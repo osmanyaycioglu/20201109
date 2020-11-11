@@ -2,7 +2,10 @@ package com.training.ykb.rest;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -85,12 +88,15 @@ public class PersonRest {
                               MediaType.APPLICATION_JSON_VALUE,
                               MediaType.APPLICATION_XML_VALUE
                  })
-    public Person greet6(@RequestBody final Person person,
-                         final HttpServletRequest hsr) {
+    public ResponseEntity<Person> greet6(@RequestBody @Validated final Person person,
+                                         final HttpServletRequest hsr) {
+        if (person.getAge() == 30) {
+            throw new IllegalArgumentException("Age 30 olamaz");
+        }
         person.setName("ali");
-        return person;
+        return ResponseEntity.status(HttpStatus.OK)
+                             .body(person);
     }
-
 
 }
 

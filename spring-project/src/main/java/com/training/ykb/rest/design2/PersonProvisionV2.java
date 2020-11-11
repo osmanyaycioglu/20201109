@@ -1,9 +1,7 @@
-package com.training.ykb.rest.design1;
+package com.training.ykb.rest.design2;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,27 +9,38 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.training.ykb.db.Person;
 
-@RestController("PersonProvisionD1")
-@RequestMapping("/person/provision")
-public class PersonProvision {
+@RestController
+@RequestMapping("/api/v2/person/provision")
+public class PersonProvisionV2 {
 
-    @PutMapping
+    @PostMapping("/add")
     public String add(@RequestBody final Person person) {
         return "OK";
     }
 
-    @DeleteMapping
+    @GetMapping("/delete")
     public String deactivate(@RequestParam("personId") final long personId) {
         return "OK";
     }
 
-    @PatchMapping
+    @PostMapping("/update")
     public String update(@RequestBody final Person person) {
         return "OK";
     }
 
-    @GetMapping
+    @GetMapping("/find")
     public Person find(@RequestParam("personId") final long personId) {
         return null;
     }
+
+    @GetMapping("/findAll")
+    public Person findAll(@RequestParam("name") final String name) {
+        return null;
+    }
+
+    @GetMapping("/xyz")
+    public Person xyz(@RequestParam("name") final String name) {
+        return null;
+    }
+
 }
