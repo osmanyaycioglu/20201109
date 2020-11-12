@@ -9,22 +9,31 @@ import org.springframework.web.client.RestTemplate;
 import com.netflix.appinfo.InstanceInfo;
 import com.netflix.discovery.EurekaClient;
 import com.netflix.discovery.shared.Application;
+import com.training.ykb.order.accounting.client.IAccountingClient;
+import com.training.ykb.order.accounting.client.MyRestException;
 import com.training.ykb.order.rest.OrderInfo;
 
 @Service
 public class AccountingClientService {
 
     @Autowired
-    private RestTemplate rt;
+    private RestTemplate      rt;
 
     @Autowired
-    private EurekaClient ec;
+    private EurekaClient      ec;
+
+    @Autowired
+    private IAccountingClient ac;
 
     public String placeOrder(final OrderInfo oi) {
         String resultLoc = this.rt.postForObject("http://ACCOUNTING/payment/pay",
                                                  oi,
                                                  String.class);
         return resultLoc;
+    }
+
+    public String placeOrderFeign(final OrderInfo oi) throws MyRestException {
+        return this.ac.pay(oi);
     }
 
     public String placeOrder2(final OrderInfo oi) {

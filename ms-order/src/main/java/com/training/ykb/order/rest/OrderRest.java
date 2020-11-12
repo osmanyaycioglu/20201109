@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.training.ykb.order.accounting.client.MyRestException;
 import com.training.ykb.order.service.AccountingClientService;
 
 @RestController
@@ -18,6 +19,11 @@ public class OrderRest {
     public String place(final OrderInfo oi) {
         return this.acs.placeOrder(oi);
 
+    }
+
+    @PostMapping("/placef")
+    public String placef(final OrderInfo oi) throws MyRestException {
+        return this.acs.placeOrderFeign(oi);
     }
 
 }
